@@ -36,7 +36,7 @@ def LLMAP(dataset_file):
     
     output = {}
     synthetic_graphs = []
-    method_graphs = {method: [] for method in dataset[0]["llm_estimation"].keys()}
+    method_graphs = {method: [] for method in dataset[0]["parser_estimation"].keys()}
     
     for sample in tqdm(dataset, desc="Construct Graph"):
         synthetic_pois = set(sample["synthetic_label"]['pois'])
@@ -94,16 +94,16 @@ def LLMAP(dataset_file):
         }
         synthetic_graphs.append(base_graph)
         
-        for method in sample["llm_estimation"]:
-            method_pois = set(sample["llm_estimation"][method].get('pois', []))
+        for method in sample["parser_estimation"]:
+            method_pois = set(sample["parser_estimation"][method].get('pois', []))
             
             if method_pois == synthetic_pois:
                 method_graph = base_graph.copy()
                 method_graph.update({
-                    'time_constraint': sample["llm_estimation"][method].get('time_constraint', None),
-                    'dependencies': sample["llm_estimation"][method].get('dependencies', []),
-                    'alpha': sample["llm_estimation"][method].get('rating_weight', 0.5) / 2,
-                    'beta': sample["llm_estimation"][method].get('route_weight', 0.5)
+                    'time_constraint': sample["parser_estimation"][method].get('time_constraint', None),
+                    'dependencies': sample["parser_estimation"][method].get('dependencies', []),
+                    'alpha': sample["parser_estimation"][method].get('rating_weight', 0.5) / 2,
+                    'beta': sample["parser_estimation"][method].get('route_weight', 0.5)
                 })
             else:
                 method_filtered_pois = [poi for poi in all_pois if poi['Type'] in method_pois]
@@ -138,13 +138,13 @@ def LLMAP(dataset_file):
                     'start_node': 0,
                     'goal_node': new_num_nodes - 1,
                     'groups': new_groups,
-                    'time_constraint': sample["llm_estimation"][method].get('time_constraint', None),
+                    'time_constraint': sample["parser_estimation"][method].get('time_constraint', None),
                     'ratings': [-1.0] + [float(poi['Rating']) for poi in method_filtered_pois] + [-1.0],
                     'num_ratings': [-1] + [poi['Number Ratings'] for poi in method_filtered_pois] + [-1],
-                    'dependencies': sample["llm_estimation"][method].get('dependencies', []),
+                    'dependencies': sample["parser_estimation"][method].get('dependencies', []),
                     'openings': [''] + [poi['Opening'] for poi in method_filtered_pois] + [''],
-                    'alpha': sample["llm_estimation"][method].get('rating_weight', 0.5) / 2,
-                    'beta': sample["llm_estimation"][method].get('route_weight', 0.5)
+                    'alpha': sample["parser_estimation"][method].get('rating_weight', 0.5) / 2,
+                    'beta': sample["parser_estimation"][method].get('route_weight', 0.5)
                 }
             method_graphs[method].append(method_graph)
     
