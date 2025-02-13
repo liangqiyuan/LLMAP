@@ -9,17 +9,7 @@
 
 
 - **User:** *Please help me plan a city walk today. Looking to hit up a **museum**, hang out at a **park**, and grab some food at a famous **restaurant**. I'd like to visit **the museum before the park** since museums tend to get more crowded later in the day. While I want to **take my time** exploring the city, I also need to be back at my hotel by **7 PM** to catch a soccer match.*
-- **LLM-as-Parser:**
-- 
-**Point of Interest:** museum, park, restaurant
-  
-**Time Limit:** 7 PM
-
-**Dependency:** museum before park
-
-**Quality Weight:** 0.8
-
-**Distance Weight:** 0.2
+- **LLM-as-Parser:** **Point of Interest:** museum, park, restaurant, **Time Limit:** 7 PM, **Dependency:** museum before park, **Quality Weight:** 0.8, **Distance Weight:** 0.2
 
 <div align="center">
     <img src="figures/Overview.png" alt="overview" style="width:60%;"/>
