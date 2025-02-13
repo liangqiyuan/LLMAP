@@ -88,7 +88,7 @@ Extract POIs, constraints, and weights from human instruction through step-by-st
 
 4. Preference Analysis:
     - Look for language about POI quality/rating importance vs route efficiency
-    - High POI rating emphasis (quality, best places, etc.) -> quality_weight should be large than 0.5
+    - High POI rating emphasis (quality, best places, etc.) ->quality_weight should be large than 0.5
     - High route efficiency emphasis (quick, shortest, save time) -> distance_weight should be large than 0.5
     - Balanced language -> both weights around 0.5
 
@@ -130,10 +130,10 @@ Only output the JSON object. No prefix, additional text, or explanation.
                 return json.loads(response)
             except json.JSONDecodeError:
                 print(response)
-                return {"pois": [], "time_constraint": "None", "dependencies": [], "rating_weight": 0.5, "route_weight": 0.5}
+                return {"pois": [], "time_limit": "None", "dependencies": [], "quality_weight": 0.5, " distance_weight": 0.5}
         except json.JSONDecodeError:
             print(response)
-            return {"pois": [], "time_constraint": "None", "dependencies": [], "rating_weight": 0.5, "route_weight": 0.5}
+            return {"pois": [], "time_limit": "None", "dependencies": [], "quality_weight": 0.5, " distance_weight": 0.5}
  
 def gpt_estimate_from_instruction(instruction, model_name, CoT=False):
     system_prompt = '''
@@ -166,7 +166,7 @@ Extract POIs, constraints, and weights from human instruction through step-by-st
 
 4. Preference Analysis:
     - Look for language about POI quality/rating importance vs route efficiency
-    - High POI rating emphasis (quality, best places, etc.) -> quality_weight should be large than 0.5
+    - High POI rating emphasis (quality, best places, etc.) ->quality_weight should be large than 0.5
     - High route efficiency emphasis (quick, shortest, save time) -> distance_weight should be large than 0.5
     - Balanced language -> both weights around 0.5
 
@@ -195,7 +195,7 @@ Only output the JSON object. No prefix, additional text, or explanation.
     print(response)
 
     if response is None:
-        return {"pois": [], "time_constraint": "None", "dependencies": [], "rating_weight": 0.5, "route_weight": 0.5}
+        return {"pois": [], "time_limit": "None", "dependencies": [], "quality_weight": 0.5, " distance_weight": 0.5}
     try:
         return json.loads(response)
     except json.JSONDecodeError:
@@ -208,10 +208,10 @@ Only output the JSON object. No prefix, additional text, or explanation.
                 return json.loads(response)
             except json.JSONDecodeError:
                 print(response)
-                return {"pois": [], "time_constraint": "None", "dependencies": [], "rating_weight": 0.5, "route_weight": 0.5}
+                return {"pois": [], "time_limit": "None", "dependencies": [], "quality_weight": 0.5, " distance_weight": 0.5}
         except json.JSONDecodeError:
             print(response)
-            return {"pois": [], "time_constraint": "None", "dependencies": [], "rating_weight": 0.5, "route_weight": 0.5}
+            return {"pois": [], "time_limit": "None", "dependencies": [], "quality_weight": 0.5, " distance_weight": 0.5}
         
 
 def generate_dataset(num_samples):
@@ -224,18 +224,18 @@ def generate_dataset(num_samples):
        selected_pois = random.sample(all_pois, num_pois)
        if random.random() < 0.3:
            hour = random.randint(17, 24)
-           time_constraint = f"{hour:02d}:00"
+           time_limit = f"{hour:02d}:00"
        else:
-           time_constraint = "None"
+           time_limit = "None"
        dependencies = []
        for i in range(len(selected_pois) - 1):
            if random.random() < 0.3:
                dependencies.append([selected_pois[i], selected_pois[i + 1]])
 
-       rating_weight = round(random.random(), 1)
-       route_weight = round(1 - rating_weight, 1)
+       quality_weight = round(random.random(), 1)
+        distance_weight = round(1 - quality_weight, 1)
        
-       ground_truth = {"pois": selected_pois, "time_constraint": time_constraint, "dependencies": dependencies, "rating_weight": rating_weight, "route_weight": route_weight}
+       ground_truth = {"pois": selected_pois, "time_limit": time_limit, "dependencies": dependencies, "quality_weight": quality_weight, " distance_weight":  distance_weight}
        human_instruction = generate_human_instruction_gpt4o(ground_truth)
        dataset.append({"ground_truth": ground_truth, "human_instruction": human_instruction})
     return dataset
