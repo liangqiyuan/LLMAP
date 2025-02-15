@@ -56,8 +56,6 @@ LCIO/
 ├─── main/
 │   │   main.py
 │   │   utils.py
-│   └─── results/
-│       │   Main_Results.pkl
 │
 ├─── data/
 │   │   HIPP.py
