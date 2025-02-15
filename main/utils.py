@@ -89,8 +89,8 @@ def LLMAP(dataset_file):
             'num_ratings': [-1] + [poi['Number Ratings'] for poi in base_filtered_pois] + [-1],
             'dependencies': sample["synthetic_label"]['dependencies'],
             'openings': [''] + [poi['Opening'] for poi in base_filtered_pois] + [''],
-            'alpha': sample["synthetic_label"]['rating_weight'] / 2,
-            'beta': sample["synthetic_label"]['route_weight']
+            'alpha': sample["synthetic_label"]['quality_weight'] / 2,
+            'beta': sample["synthetic_label"]['distance_weight']
         }
         synthetic_graphs.append(base_graph)
         
@@ -102,8 +102,8 @@ def LLMAP(dataset_file):
                 method_graph.update({
                     'time_constraint': sample["parser_estimation"][method].get('time_constraint', None),
                     'dependencies': sample["parser_estimation"][method].get('dependencies', []),
-                    'alpha': sample["parser_estimation"][method].get('rating_weight', 0.5) / 2,
-                    'beta': sample["parser_estimation"][method].get('route_weight', 0.5)
+                    'alpha': sample["parser_estimation"][method].get('quality_weight', 0.5) / 2,
+                    'beta': sample["parser_estimation"][method].get('distance_weight', 0.5)
                 })
             else:
                 method_filtered_pois = [poi for poi in all_pois if poi['Type'] in method_pois]
@@ -143,8 +143,8 @@ def LLMAP(dataset_file):
                     'num_ratings': [-1] + [poi['Number Ratings'] for poi in method_filtered_pois] + [-1],
                     'dependencies': sample["parser_estimation"][method].get('dependencies', []),
                     'openings': [''] + [poi['Opening'] for poi in method_filtered_pois] + [''],
-                    'alpha': sample["parser_estimation"][method].get('rating_weight', 0.5) / 2,
-                    'beta': sample["parser_estimation"][method].get('route_weight', 0.5)
+                    'alpha': sample["parser_estimation"][method].get('quality_weight', 0.5) / 2,
+                    'beta': sample["parser_estimation"][method].get('distance_weight', 0.5)
                 }
             method_graphs[method].append(method_graph)
     
