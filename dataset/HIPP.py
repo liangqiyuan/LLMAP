@@ -220,24 +220,24 @@ def generate_dataset(num_samples):
     # LLM_model, LLM_tokenizer = load_model(generation_model)
     dataset = []
     for _ in range(num_samples):
-       num_pois = random.randint(1, 5)
-       selected_pois = random.sample(all_pois, num_pois)
+        num_pois = random.randint(1, 5)
+        selected_pois = random.sample(all_pois, num_pois)
+    if random.random() < 0.3:
+       hour = random.randint(17, 24)
+       time_limit = f"{hour:02d}:00"
+    else:
+       time_limit = "None"
+    dependencies = []
+    for i in range(len(selected_pois) - 1):
        if random.random() < 0.3:
-           hour = random.randint(17, 24)
-           time_limit = f"{hour:02d}:00"
-       else:
-           time_limit = "None"
-       dependencies = []
-       for i in range(len(selected_pois) - 1):
-           if random.random() < 0.3:
-               dependencies.append([selected_pois[i], selected_pois[i + 1]])
-
-       quality_weight = round(random.random(), 1)
-        distance_weight = round(1 - quality_weight, 1)
-       
-       synthetic_label = {"pois": selected_pois, "time_limit": time_limit, "dependencies": dependencies, "quality_weight": quality_weight, " distance_weight":  distance_weight}
-       human_instruction = generate_human_instruction_gpt4o(synthetic_label)
-       dataset.append({"synthetic_label": synthetic_label, "human_instruction": human_instruction})
+           dependencies.append([selected_pois[i], selected_pois[i + 1]])
+    
+    quality_weight = round(random.random(), 1)
+    distance_weight = round(1 - quality_weight, 1)
+   
+    synthetic_label = {"pois": selected_pois, "time_limit": time_limit, "dependencies": dependencies, "quality_weight": quality_weight, " distance_weight":  distance_weight}
+    human_instruction = generate_human_instruction_gpt4o(synthetic_label)
+    dataset.append({"synthetic_label": synthetic_label, "human_instruction": human_instruction})
     return dataset
 
 def generate_estimations(estimation_models, dataset):
