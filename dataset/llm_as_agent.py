@@ -4,7 +4,7 @@ from difflib import get_close_matches
 from transformers import AutoModelForCausalLM, AutoTokenizer 
 
 def load_model(model_name):
-    model = AutoModelForCausalLM.from_pretrained(model_name, device_map="balanced",)
+    model = AutoModelForCausalLM.from_pretrained(model_name, device_map="balanced", torch_dtype="auto", trust_remote_code=True)
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     return model, tokenizer
 
