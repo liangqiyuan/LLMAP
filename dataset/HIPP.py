@@ -11,7 +11,7 @@ def load_model(model_name):
     model = AutoModelForCausalLM.from_pretrained(model_name).to(device)
     return model, tokenizer
 
-def generate_human_instruction_gpt4o(ground_truth):
+def generate_human_instruction_gpt4o(synthetic_label):
     system_prompt = '''
 You need to generate a natural human instruction by following these thinking steps:
 
@@ -235,9 +235,9 @@ def generate_dataset(num_samples):
        quality_weight = round(random.random(), 1)
         distance_weight = round(1 - quality_weight, 1)
        
-       ground_truth = {"pois": selected_pois, "time_limit": time_limit, "dependencies": dependencies, "quality_weight": quality_weight, " distance_weight":  distance_weight}
-       human_instruction = generate_human_instruction_gpt4o(ground_truth)
-       dataset.append({"ground_truth": ground_truth, "human_instruction": human_instruction})
+       synthetic_label = {"pois": selected_pois, "time_limit": time_limit, "dependencies": dependencies, "quality_weight": quality_weight, " distance_weight":  distance_weight}
+       human_instruction = generate_human_instruction_gpt4o(synthetic_label)
+       dataset.append({"synthetic_label": synthetic_label, "human_instruction": human_instruction})
     return dataset
 
 def generate_estimations(estimation_models, dataset):
