@@ -149,7 +149,7 @@ def LLMAP(dataset_file):
             method_graphs[method].append(method_graph)
     
     st = time.time()
-    synthetic_paths, synthetic_groups = MSGD(synthetic_graphs)
+    synthetic_paths, synthetic_groups = MSGS(synthetic_graphs)
     synthetic_runtime = time.time() - st
     output['synthetic_label'] = {
         'graphs': synthetic_graphs,
@@ -158,9 +158,9 @@ def LLMAP(dataset_file):
         'total_runtime': synthetic_runtime
     }
     
-    for method in tqdm(method_graphs, desc="MSGD"):
+    for method in tqdm(method_graphs, desc="MSGS"):
         st = time.time()
-        method_paths, method_groups = MSGD(method_graphs[method])
+        method_paths, method_groups = MSGS(method_graphs[method])
         method_runtime = time.time() - st
         output[f'{method}'] = {
             'graphs': method_graphs[method],
@@ -231,7 +231,7 @@ def compute_path_and_cost(i, graph, selected_groups, node_in_groups):
     return real_time, path
 
 
-def MSGD(graphs):
+def MSGS(graphs):
     predicted_paths = []
     predicted_groups = []
 
