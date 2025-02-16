@@ -19,7 +19,7 @@
 
 ## 🔥 Our Framework
 
-We present **LLMAP** (LLM-Assisted Route Planning) system and **MSGS** (Multi-Step Graph Construction with Iterative Search) algorithm. After the LLM-as-Parser interprets the human instruction and retrieves POI information from the map service, we employ the \AlgName algorithm to identify the optimal route. We utilize a multi-step graph construction approach where local optimal paths are first obtained on subgraphs using the Dijkstra algorithm, followed by the integration of these local optimal paths to achieve global route optimization. Dependency constraints are verified before subgraph construction, while time limits and opening hours are validated after obtaining local optimal paths.
+We present **LLMAP** (LLM-Assisted Route Planning) system and **MSGS** (Multi-Step Graph Construction with Iterative Search) algorithm. After the LLM-as-Parser interprets the human instruction and retrieves POI information from the map service, we employ the MSGS algorithm to identify the optimal route. We utilize a multi-step graph construction approach where local optimal paths are first obtained on subgraphs using the Dijkstra algorithm, followed by the integration of these local optimal paths to achieve global route optimization. Dependency constraints are verified before subgraph construction, while time limits and opening hours are validated after obtaining local optimal paths.
 
 <div align="center">
     <img src="figures/Methodology.png" alt="overview" style="width:60%;"/>
