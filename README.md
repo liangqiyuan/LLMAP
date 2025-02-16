@@ -13,7 +13,7 @@
 - **Planned Route:** hotel -> art museum -> lobster restaurant -> zoo -> hotel
 
 <div align="center">
-    <img src="figures/Overview.png" alt="overview" style="width:60%;"/>
+    <img src="figures/Overview.png" alt="overview" style="width:50%;"/>
 </div>
 
 
