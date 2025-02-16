@@ -12,9 +12,7 @@
 - **LLM-as-Parser:** **Point of Interest:** museum, park, restaurant, **Time Limit:** 7 PM, **Dependency:** museum before park, **Quality Weight:** 0.8, **Distance Weight:** 0.2
 - **Planned Route:** hotel -> art museum -> lobster restaurant -> zoo -> hotel
 
-<div align="center">
-    <img src="figures/Overview.png" alt="overview" style="width:50%;"/>
-</div>
+
 
 
 ## 🔥 Our Framework
