@@ -267,7 +267,7 @@ def gpt_generate_estimations(estimation_models, dataset):
 
             print(model_name)
             for sample in dataset:
-                estimation = gpt_estimate_from_instruction(sample["human_instruction"], model_name, CoT=False)
+                estimation = gpt_estimate_from_instruction(sample["human_instruction"], model_name, CoT=CoT)
                 sample[key] = estimation
 
             with open('HIPP.json', 'w', encoding='utf-8') as f:
