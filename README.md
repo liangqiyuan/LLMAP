@@ -84,4 +84,4 @@ python main/main.py
 
 ## 🙏 Acknowledgement
 
-
+This project utilizes the Google Maps API for our experimental section. The API documentation can be found at [Google Maps Platform documentation](https://developers.google.com/maps/documentation/places/web-service/overview). As of May 1, 2025, Google Maps Platform offers the first 10,000 events for free per month.
